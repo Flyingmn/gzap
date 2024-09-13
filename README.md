@@ -23,7 +23,17 @@ gzap.SetZapCfg(gzap.ZapLevel("info"))
 // 高性能: Debug, Info, Warn, Error, DPanic, Panic, Fatal
 
 gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
-// {"level":"info","time":"-","line":"-","func":"-","msg":"hello world","name":"zhangsan","age":18}
+/* 
+{
+    "level":"info",
+    "time":"2024-10-01 12:00:00.000",
+    "line":"/gzap/zap_test.go:143",
+    "func":"github.com/Flyingmn/gzap_test.TestFunc",
+    "msg":"hello world",
+    "name":"zhangsan",
+    "age":18
+}
+*/
 ```
 
 #### 带语法糖的zap *zap.SugaredLogger
@@ -100,8 +110,8 @@ config := zap.Config{
         FunctionKey:    "func",
         StacktraceKey:  "stacktrace",
         LineEnding:     zapcore.DefaultLineEnding,
-        EncodeLevel:    zapcore.LowercaseLevelEncoder,                          // 小写编码器
-        EncodeTime:     zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05.000"), // 定义时间格式
+        EncodeLevel:    zapcore.LowercaseLevelEncoder,                         //小写编码器
+        EncodeTime:     zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05.000"),//定义时间格式
         EncodeDuration: zapcore.SecondsDurationEncoder,
         EncodeCaller:   zapcore.FullCallerEncoder, // 全路径编码器
     }, // 编码器配置
