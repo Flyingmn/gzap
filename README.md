@@ -70,7 +70,12 @@ gzap.Info(
 ```go
 // 获取logger:gzap.Zap(); 获取sugaredLogger: gzap.Sap()
 
-gzap.Zap().Log(zap.InfoLevel, "hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
+gzap.Zap().Log(
+    zap.InfoLevel, 
+    "hello world", 
+    zap.String("name", "zhangsan"), 
+    zap.Int("age", 18)
+)
 // {"level":"info","msg":"hello world","name":"zhangsan","age":18}
 
 gzap.Sap().Infoln("hello world", "name", "zhangsan", "age", 18)
