@@ -2,6 +2,7 @@ package gzap
 
 import (
 	"os"
+	"strings"
 	"sync"
 
 	"go.uber.org/zap"
@@ -46,7 +47,7 @@ var zapLogCfg = &zapLogConfig{
 }
 
 /*
- * 默认Info级别，如果要自定义级别，请在此之前设置GetZapCfg().SetLevel()
+ * 默认Info级别，如果要自定义级别，请在此之前设置SetZapCfg(gzap.ZapLevel("debug"))
  * gzap.Zap().Info("hello world", zap.String("name", "zhangsir"), zap.Any("age", 18))
  */
 func Zap() *zap.Logger {
@@ -80,12 +81,24 @@ func zapLazyInit() {
 
 		zapCore := zapcore.NewCore(encoder, syncer, zapLogCfg.zapConf.Level)
 
+		//预设字段
+		if len(zapLogCfg.zapConf.InitialFields) > 0 {
+			fields := []zap.Field{}
+
+			for k, v := range zapLogCfg.zapConf.InitialFields {
+				fields = append(fields, zap.Any(k, v))
+			}
+
+			zapLogCfg.logger = zap.New(zapCore, zap.AddCaller(), zap.AddCallerSkip(1), zap.Fields(fields...))
+			return
+		}
+
 		zapLogCfg.logger = zap.New(zapCore, zap.AddCaller(), zap.AddCallerSkip(1))
 	})
 }
 
 /*
- * 自定义配置的时候需要
+ * 自定义配置的时候需要（注意要在使用日志之前设置）
  * gzap.SetZapCfg(gzap.ZapLevel("debug"), gzap.ZapOutFile("./log/test.log", gzap.ZapOutFileMaxSize(128), gzap.ZapOutFileMaxAge(7)))
  */
 func SetZapCfg(opts ...func(*zapLogConfig)) {
@@ -94,8 +107,16 @@ func SetZapCfg(opts ...func(*zapLogConfig)) {
 	}
 }
 
+// 设置预设字段
+func SetPresetFields(fields map[string]any) func(*zapLogConfig) {
+	return func(z *zapLogConfig) {
+		z.zapConf.InitialFields = fields
+	}
+}
+
 // 设置日志等级
 func ZapLevel(level string) func(*zapLogConfig) {
+	level = strings.ToLower(level)
 
 	return func(z *zapLogConfig) {
 		if z.logger != nil {
@@ -111,6 +132,12 @@ func ZapLevel(level string) func(*zapLogConfig) {
 			z.zapConf.Level = zap.NewAtomicLevelAt(zap.WarnLevel)
 		case "error":
 			z.zapConf.Level = zap.NewAtomicLevelAt(zap.ErrorLevel)
+		case "dpanic":
+			z.zapConf.Level = zap.NewAtomicLevelAt(zap.DPanicLevel)
+		case "panic":
+			z.zapConf.Level = zap.NewAtomicLevelAt(zap.PanicLevel)
+		case "fatal":
+			z.zapConf.Level = zap.NewAtomicLevelAt(zap.FatalLevel)
 		}
 	}
 }
@@ -142,17 +169,21 @@ func ZapOutFile(path string, opts ...func(*lumberjack.Logger)) func(*zapLogConfi
 	}
 }
 
-// 可以自定义文件分片的配置
+// 进行切割之前,日志文件的最大大小(MB为单位)
 func ZapOutFileMaxSize(maxSize int) func(ll *lumberjack.Logger) {
 	return func(ll *lumberjack.Logger) {
 		ll.MaxSize = maxSize
 	}
 }
+
+// 保留旧文件的最大天数
 func ZapOutFileMaxAge(maxAge int) func(ll *lumberjack.Logger) {
 	return func(ll *lumberjack.Logger) {
 		ll.MaxAge = maxAge
 	}
 }
+
+// 保留旧文件的最大个数
 func ZapOutFileMaxBackups(maxBackups int) func(ll *lumberjack.Logger) {
 	return func(ll *lumberjack.Logger) {
 		ll.MaxBackups = maxBackups
