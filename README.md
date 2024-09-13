@@ -101,7 +101,7 @@ config := zap.Config{
         StacktraceKey:  "stacktrace",
         LineEnding:     zapcore.DefaultLineEnding,
         EncodeLevel:    zapcore.LowercaseLevelEncoder,                          // 小写编码器
-        EncodeTime:     zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05.000"), // 自定义 时间格式
+        EncodeTime:     zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05.000"), // 定义时间格式
         EncodeDuration: zapcore.SecondsDurationEncoder,
         EncodeCaller:   zapcore.FullCallerEncoder, // 全路径编码器
     }, // 编码器配置
