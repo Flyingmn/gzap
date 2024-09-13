@@ -31,7 +31,7 @@ gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
 // 性能不敏感场景使用: Debugw, Infow, Warnw, Errorw, DPanicw, Panicw, Fatalw
 
 gzap.Infow("hello world", "name", "zhangsan", "age", 18)
-// {"level":"info","time":"-","line":"-","func":"-","msg":"hello world","name":"zhangsan","age":18}
+// {"level":"info","msg":"hello world","name":"zhangsan","age":18}
 ```
 
 
@@ -40,7 +40,7 @@ gzap.Infow("hello world", "name", "zhangsan", "age", 18)
 // Debugf, Infof, Warnf, Errorf, DPanicf, Panicf, Fatalf
 
 gzap.Infof("hello world; name:%s; age:%d", "zhangsan", 18)
-// {"level":"info","time":"-","line":"-","func":"-","msg":"hello world; name:zhangsan; age:18"}
+// {"level":"info","msg":"hello world; name:zhangsan; age:18"}
 ```
 
 ### 预设字段
@@ -49,7 +49,7 @@ gzap.Infof("hello world; name:%s; age:%d", "zhangsan", 18)
 
 gzap.SetZapCfg(gzap.SetPresetFields(map[string]any{"service": "myservice"}))
 gzap.Info("hello world")
-// {"level":"info","time":"-","line":"-","func":"-","msg":"hello world","service":"myservice"}
+// {"level":"info","msg":"hello world","service":"myservice"}
 ```
 
 ### 多层次嵌套
@@ -63,7 +63,7 @@ gzap.Info(
     zap.String("name", "lisi"), 
     zap.Int("age", 19)
 )
-// {"level":"info","time":"-","line":"-","func":"-","msg":"hello world","user1":{"name":"zhangsan","age":18}}
+// {"level":"info","msg":"hello world","user1":{"name":"zhangsan","age":18}}
 ```
 
 ### 其他方法, 请获取zapClient后调用
@@ -71,10 +71,10 @@ gzap.Info(
 // 获取logger:gzap.Zap(); 获取sugaredLogger: gzap.Sap()
 
 gzap.Zap().Log(zap.InfoLevel, "hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
-// {"level":"info","time":"-","line":"-","func":"-","msg":"hello world","name":"zhangsan","age":18}
+// {"level":"info","msg":"hello world","name":"zhangsan","age":18}
 
 gzap.Sap().Infoln("hello world", "name", "zhangsan", "age", 18)
-// {"level":"info","time":"-","line":"-","func":"-","msg":"hello world name zhangsan age 18"}
+// {"level":"info","msg":"hello world name zhangsan age 18"}
 ```
 
 ### 设置日志输出方式 
@@ -124,5 +124,5 @@ config := zap.Config{
 gzap.SetZapCfg(gzap.ZapConf(conf))
 
 gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
-// {"level":"info","time":"-","line":"-","func":"-","msg":"hello world","app":"test","name":"zhangsan","age":18}
+// {"level":"info","msg":"hello world","app":"test","name":"zhangsan","age":18}
 ```
