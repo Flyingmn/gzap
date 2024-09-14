@@ -1,6 +1,8 @@
 ## 简介
 
-包装一下zap，方便使用
+包装一下zap
+
+https://github.com/uber-go/zap
 
 ## 安装
 
