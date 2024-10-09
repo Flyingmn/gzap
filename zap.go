@@ -15,10 +15,12 @@ type zapLogConfig struct {
 	loggerOnce sync.Once
 	zapSyncer  []zapcore.WriteSyncer
 	zapConf    zap.Config
+	CallerSkip int
 }
 
 // 默认的配置
 var zapLogCfg = &zapLogConfig{
+	CallerSkip: 1,
 	logger:     nil,         // 返回的zap
 	loggerOnce: sync.Once{}, // 懒加载
 
@@ -89,11 +91,11 @@ func zapLazyInit() {
 				fields = append(fields, zap.Any(k, v))
 			}
 
-			zapLogCfg.logger = zap.New(zapCore, zap.AddCaller(), zap.AddCallerSkip(1), zap.Fields(fields...))
+			zapLogCfg.logger = zap.New(zapCore, zap.AddCaller(), zap.AddCallerSkip(zapLogCfg.CallerSkip), zap.Fields(fields...))
 			return
 		}
 
-		zapLogCfg.logger = zap.New(zapCore, zap.AddCaller(), zap.AddCallerSkip(1))
+		zapLogCfg.logger = zap.New(zapCore, zap.AddCaller(), zap.AddCallerSkip(zapLogCfg.CallerSkip))
 	})
 }
 
@@ -198,6 +200,17 @@ func ZapDevelopment(dev bool) func(*zapLogConfig) {
 		}
 
 		z.zapConf.Development = dev
+	}
+}
+
+// 设置callserskip
+func ZapCallerSkip(skip int) func(*zapLogConfig) {
+	return func(z *zapLogConfig) {
+		if z.logger != nil {
+			z.logger.Error("logger already init before SetCallerSkip")
+		}
+
+		z.CallerSkip = skip
 	}
 }
 
