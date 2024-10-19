@@ -7,7 +7,7 @@ zap是啥？ -> https://github.com/uber-go/zap
 ## 安装
 
 ```bash
-go get github.com/Flyingmn/gzap
+go get -u github.com/Flyingmn/gzap
 ```
 
 ## 使用
