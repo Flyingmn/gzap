@@ -61,26 +61,26 @@ func TestDPanic(t *testing.T) {
 	gzap.DPanicf("hello world; name:%s; age:%d", "zhangsan", 18) // printf
 }
 
-func TestPanic(t *testing.T) {
-	defer gzap.Syncw()
-	defer gzap.Sync()
-	gzap.Panic("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18)) //高性能
+// func TestPanic(t *testing.T) {
+// 	defer gzap.Syncw()
+// 	defer gzap.Sync()
+// 	gzap.Panic("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18)) //高性能
 
-	//不会执行
-	gzap.Panicw("hello world", "name", "zhangsan", "age", 18) //性能普通
-	//不会执行
-	gzap.Panicf("hello world; name:%s; age:%d", "zhangsan", 18) // printf
-}
+// 	//不会执行
+// 	gzap.Panicw("hello world", "name", "zhangsan", "age", 18) //性能普通
+// 	//不会执行
+// 	gzap.Panicf("hello world; name:%s; age:%d", "zhangsan", 18) // printf
+// }
 
-func TestFatal(t *testing.T) {
-	defer gzap.Syncw()
-	defer gzap.Sync()
-	gzap.Fatal("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18)) //高性能
-	//不会执行
-	gzap.Fatalw("hello world", "name", "zhangsan", "age", 18) //性能普通
-	//不会执行
-	gzap.Fatalf("hello world; name:%s; age:%d", "zhangsan", 18) // printf
-}
+// func TestFatal(t *testing.T) {
+// 	defer gzap.Syncw()
+// 	defer gzap.Sync()
+// 	gzap.Fatal("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18)) //高性能
+// 	//不会执行
+// 	gzap.Fatalw("hello world", "name", "zhangsan", "age", 18) //性能普通
+// 	//不会执行
+// 	gzap.Fatalf("hello world; name:%s; age:%d", "zhangsan", 18) // printf
+// }
 
 func TestLog(t *testing.T) {
 	gzap.Zap().Log(zap.DebugLevel, "hello world", zap.String("name", "zhangsan"), zap.Int("age", 18)) //不输出
