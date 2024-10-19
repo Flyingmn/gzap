@@ -12,7 +12,7 @@ go get github.com/Flyingmn/gzap
 
 ## 使用
 
-#### 普通zap *zap.Logger
+#### 普通zap (*zap.Logger)
 ```go
 // 高性能: Debug, Info, Warn, Error, DPanic, Panic, Fatal
 
@@ -30,7 +30,7 @@ gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
 */
 ```
 
-#### 带语法糖的zap *zap.SugaredLogger
+#### 带语法糖的zap (*zap.SugaredLogger)
 ```go
 // 性能不敏感场景使用: Debugw, Infow, Warnw, Errorw, DPanicw, Panicw, Fatalw
 
@@ -39,13 +39,29 @@ gzap.Infow("hello world", "name", "zhangsan", "age", 18)
 ```
 
 
-#### Printf的方式 *zap.SugaredLogger
+#### Printf方式的zap (*zap.SugaredLogger)
 ```go
 // Debugf, Infof, Warnf, Errorf, DPanicf, Panicf, Fatalf
 
 gzap.Infof("hello world; name:%s; age:%d", "zhangsan", 18)
 // {"level":"info","msg":"hello world; name:zhangsan; age:18"}
 ```
+
+#### 多层次嵌套
+```go
+gzap.Info(
+    "hello world", 
+    zap.Namespace("user1"), 
+    zap.String("name", "zhangsan"), 
+    zap.Int("age", 18), 
+    zap.Namespace("user2"), 
+    zap.String("name", "lisi"), 
+    zap.Int("age", 19)
+)
+// {"level":"info","msg":"hello world","user1":{"name":"zhangsan","age":18}}
+```
+
+## 如果需要，可以进行其它设置
 
 #### 设置日志级别
 ```go
@@ -61,20 +77,6 @@ gzap.SetZapCfg(gzap.ZapLevel("info"))
 gzap.SetZapCfg(gzap.SetPresetFields(map[string]any{"service": "myservice"}))
 gzap.Info("hello world")
 // {"level":"info","msg":"hello world","service":"myservice"}
-```
-
-#### 多层次嵌套
-```go
-gzap.Info(
-    "hello world", 
-    zap.Namespace("user1"), 
-    zap.String("name", "zhangsan"), 
-    zap.Int("age", 18), 
-    zap.Namespace("user2"), 
-    zap.String("name", "lisi"), 
-    zap.Int("age", 19)
-)
-// {"level":"info","msg":"hello world","user1":{"name":"zhangsan","age":18}}
 ```
 
 #### 设置日志输出方式 
