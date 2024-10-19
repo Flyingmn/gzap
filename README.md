@@ -61,7 +61,7 @@ gzap.Info(
 // {"level":"info","msg":"hello world","user1":{"name":"zhangsan","age":18}}
 ```
 
-## 如果需要，可以进行其它设置
+## 其它设置（如果需要）
 
 #### 设置日志级别
 ```go
