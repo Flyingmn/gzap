@@ -1,24 +1,16 @@
 ## 简介
 
-包装一下zap
+包装一下zap ：）
 
-https://github.com/uber-go/zap
+zap是啥？ ->： https://github.com/uber-go/zap
 
 ## 安装
 
 ```bash
-# 使用go modules
-go get -u github.com/Flyingmn/gzap
+go get github.com/Flyingmn/gzap
 ```
 
 ## 使用
-
-#### 设置日志级别
-```go
-// 默认info级别，如果要自定义级别(注意SetZapCfg要在使用日志之前设置）
-
-gzap.SetZapCfg(gzap.ZapLevel("info"))
-```
 
 #### 普通zap *zap.Logger
 ```go
@@ -53,6 +45,13 @@ gzap.Infow("hello world", "name", "zhangsan", "age", 18)
 
 gzap.Infof("hello world; name:%s; age:%d", "zhangsan", 18)
 // {"level":"info","msg":"hello world; name:zhangsan; age:18"}
+```
+
+#### 设置日志级别
+```go
+// 默认info级别，如果要自定义级别(注意SetZapCfg要在使用日志之前设置）
+
+gzap.SetZapCfg(gzap.ZapLevel("info"))
 ```
 
 #### 预设字段
