@@ -17,7 +17,7 @@ go get github.com/Flyingmn/gzap
 // 高性能: Debug, Info, Warn, Error, DPanic, Panic, Fatal
 
 gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
-/* 
+/*  输出日志在同一行，这里为了展示将json格式化
 {
     "level":"info",
     "time":"2024-10-01 12:00:00.000",
