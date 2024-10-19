@@ -2,7 +2,7 @@
 
 包装一下zap ：）
 
-zap是啥？ ->： https://github.com/uber-go/zap
+zap是啥？ -> https://github.com/uber-go/zap
 
 ## 安装
 
