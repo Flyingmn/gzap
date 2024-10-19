@@ -1,23 +1,23 @@
-## 简介
+## gzap
 
-包装一下zap ：）
+Pack up the Zap, out of the box. ：）
 
-zap是啥？ -> https://github.com/uber-go/zap
+what's zap? -> https://github.com/uber-go/zap
 
-## 安装
+## Installation
 
 ```bash
 go get -u github.com/Flyingmn/gzap
 ```
 
-## 使用
+## Quick Start
 
-##### 普通zap (*zap.Logger)
+##### Zap Common (*zap.Logger)
 ```go
-// 高性能: Debug, Info, Warn, Error, DPanic, Panic, Fatal
+// High performance: Debug, Info, Warn, Error, DPanic, Panic, Fatal
 
 gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
-/*  输出日志在同一行，这里为了展示将json格式化
+/*  Output the logs on the same line. Here, in order to demonstrate the formatting of JSON
 {
     "level":"info",
     "time":"2024-10-01 12:00:00.000",
@@ -30,16 +30,16 @@ gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
 */
 ```
 
-##### 带语法糖的zap (*zap.SugaredLogger)
+##### Zap with grammar sugar (*zap.SugaredLogger)
 ```go
-// 性能不敏感场景使用: Debugw, Infow, Warnw, Errorw, DPanicw, Panicw, Fatalw
+// Usage in performance insensitive scenarios: Debugw, Infow, Warnw, Errorw, DPanicw, Panicw, Fatalw
 
 gzap.Infow("hello world", "name", "zhangsan", "age", 18)
 // {"level":"info","msg":"hello world","name":"zhangsan","age":18}
 ```
 
 
-##### Printf方式的zap (*zap.SugaredLogger)
+##### Zap in Printf format (*zap.SugaredLogger)
 ```go
 // Debugf, Infof, Warnf, Errorf, DPanicf, Panicf, Fatalf
 
@@ -47,7 +47,7 @@ gzap.Infof("hello world; name:%s; age:%d", "zhangsan", 18)
 // {"level":"info","msg":"hello world; name:zhangsan; age:18"}
 ```
 
-##### 多层次嵌套
+##### Multi level nesting
 ```go
 gzap.Info(
     "hello world", 
@@ -63,48 +63,48 @@ gzap.Info(
 
 
 
-## 其它设置（如果需要）
+## Other settings (if needed)
 
-##### 设置日志级别
+##### Set log level
 ```go
-// 默认info级别，如果要自定义级别(注意SetZapCfg要在使用日志之前设置）
+// Default info level, if you want to customize the level (note that SetZapCfg needs to be set before using logs)
 
 gzap.SetZapCfg(gzap.ZapLevel("info"))
 ```
 
-##### 预设字段
+##### Preset fields
 ```go
-// (注意SetZapCfg要在使用日志之前设置）
+// (Note that SetZapCfg needs to be set before using zap）
 
 gzap.SetZapCfg(gzap.SetPresetFields(map[string]any{"service": "myservice"}))
 gzap.Info("hello world")
 // {"level":"info","msg":"hello world","service":"myservice"}
 ```
 
-##### 设置日志输出方式 
+##### Set the log out file
 ```go
-//（注意SetZapCfg要在使用日志之前设置）
+//(Note that SetZapCfg needs to be set before using zap）
 
 gzap.SetZapCfg(
     gzap.ZapOutFile(
-        "./log/test.log",               //文件位置
-        gzap.ZapOutFileMaxSize(128),    // 日志文件的最大大小(MB为单位)
-        gzap.ZapOutFileMaxAge(7),       //保留旧文件的最大天数量
-        gzap.ZapOutFileMaxBackups(30),  //保留旧文件的最大个数
+        "./log/test.log",               // file location
+        gzap.ZapOutFileMaxSize(128),    // the maximum size of the log file (in MB)
+        gzap.ZapOutFileMaxAge(7),       // maximum number of days to retain old files
+        gzap.ZapOutFileMaxBackups(30),  // maximum number of old files retained
     ),
 )
 
 gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
 ```
 
-##### 配置深度定制
+##### Deep customization of configuration
 ```go
-// 自定义配置后传入  （注意SetZapCfg要在使用日志之前设置）
+// 自定义配置后传入  (Note that SetZapCfg needs to be set before using zap）
 
 config := zap.Config{
-    Level:       zap.NewAtomicLevelAt(zap.InfoLevel), // 日志级别
-    Development: true,                                // 开发模式，堆栈跟踪
-    Encoding:    "json",                              // 输出格式 console 或 json
+    Level:       zap.NewAtomicLevelAt(zap.InfoLevel), // Log Level
+    Development: true,                                // development mode, stack trace
+    Encoding:    "json",                              // Output format console or JSON
 
     EncoderConfig: zapcore.EncoderConfig{
         TimeKey:        "time",
@@ -115,11 +115,11 @@ config := zap.Config{
         FunctionKey:    "func",
         StacktraceKey:  "stacktrace",
         LineEnding:     zapcore.DefaultLineEnding,
-        EncodeLevel:    zapcore.LowercaseLevelEncoder,                         //小写编码器
-        EncodeTime:     zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05.000"),//定义时间格式
+        EncodeLevel:    zapcore.LowercaseLevelEncoder,                         //Lowercase encoder
+        EncodeTime:     zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05.000"),//Define time format
         EncodeDuration: zapcore.SecondsDurationEncoder,
-        EncodeCaller:   zapcore.FullCallerEncoder, // 全路径编码器
-    }, // 编码器配置
+        EncodeCaller:   zapcore.FullCallerEncoder, // Full path encoder
+    }, // Encoder configuration
     InitialFields: map[string]interface{}{
         "app": "test",
     },
@@ -131,9 +131,9 @@ gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
 // {"level":"info","msg":"hello world","app":"test","name":"zhangsan","age":18}
 ```
 
-##### 获取zapClient
+##### Get ZapClient
 ```go
-// 获取logger:gzap.Zap(); 
+// Get logger:gzap.Zap(); 
 
 gzap.Zap().Log(
     zap.InfoLevel, 
@@ -143,7 +143,7 @@ gzap.Zap().Log(
 )
 // {"level":"info","msg":"hello world","name":"zhangsan","age":18}
 
-// 获取sugaredLogger: gzap.Sap()
+// Get sugaredLogger: gzap.Sap()
 gzap.Sap().Infoln("hello world", "name", "zhangsan", "age", 18)
 // {"level":"info","msg":"hello world name zhangsan age 18"}
 ```
