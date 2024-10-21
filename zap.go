@@ -203,6 +203,16 @@ func ZapDevelopment(dev bool) func(*zapLogConfig) {
 	}
 }
 
+func ZapEncodering(encodering string) func(*zapLogConfig) {
+	return func(z *zapLogConfig) {
+		if z.logger != nil {
+			z.logger.Error("logger already init before SetEncoder")
+		}
+
+		z.zapConf.Encoding = encodering
+	}
+}
+
 // 设置callserskip
 func ZapCallerSkip(skip int) func(*zapLogConfig) {
 	return func(z *zapLogConfig) {

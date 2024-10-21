@@ -45,7 +45,7 @@ func DPanic(msg string, fields ...zap.Field) {
 func Panic(msg string, fields ...zap.Field) {
 	Zap().Panic(msg, fields...)
 }
-func Fatal(msg string, fields ...zap.Field) {
+func Fatal(msg string, fields ...zap.Field) { // pragma: no cover
 	Zap().Fatal(msg, fields...)
 }
 
@@ -72,7 +72,7 @@ func DPanicf(template string, args ...interface{}) {
 func Panicf(template string, args ...interface{}) {
 	Sap().Panicf(template, args...)
 }
-func Fatalf(template string, args ...interface{}) {
+func Fatalf(template string, args ...interface{}) { // pragma: no cover
 	Sap().Fatalf(template, args...)
 }
 
@@ -104,6 +104,6 @@ func DPanicw(msg string, keysAndValues ...interface{}) {
 func Panicw(msg string, keysAndValues ...interface{}) {
 	Sap().Panicw(msg, keysAndValues...)
 }
-func Fatalw(msg string, keysAndValues ...interface{}) {
+func Fatalw(msg string, keysAndValues ...interface{}) { // pragma: no cover
 	Sap().Fatalw(msg, keysAndValues...)
 }
