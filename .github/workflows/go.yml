@@ -25,4 +25,12 @@ jobs:
       run: go build -v ./...
 
     - name: Test # 运行用例
-      run: go test -v .
+      run: go test ./... -race -coverprofile=coverage.txt -covermode=atomic -v
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage.txt
+        flags: unittests
+
