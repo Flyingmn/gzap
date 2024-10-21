@@ -2,11 +2,10 @@ language: go # 使用语言.
 go: 
   - 1.18  # 版本号, 支持多种版本号
 
-sudo: required #  #有定制化开发环境需要，默认false，不开启容器，编译效率高 
+sudo: false #  #有定制化开发环境需要，默认false，不开启容器，编译效率高 
 
 os:            # 使用的操作系统 
   - linux
-  - osx
 
 notifications:  # 邮箱通知
   email: 52818184@qq.com
