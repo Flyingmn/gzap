@@ -4,9 +4,9 @@
 
 Pack up the Zap, out of the box. ：）
 
-what's zap? -> https://github.com/uber-go/zap
+What's zap?      : https://github.com/uber-go/zap
 
-more -> https://pkg.go.dev/github.com/Flyingmn/gzap
+More about gzap  : https://pkg.go.dev/github.com/Flyingmn/gzap
 
 ## Installation
 
