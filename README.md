@@ -1,4 +1,5 @@
-[![CI&CD](https://github/Flyingmn/gzap/workflows/Go/badge.svg)] [![codecov](https://codecov.io/github/Flyingmn/gzap/graph/badge.svg?token=I829UGIO29)](https://codecov.io/github/Flyingmn/gzap)
+[![Go](https://github.com/Flyingmn/gzap/actions/workflows/go.yml/badge.svg)](https://github.com/Flyingmn/gzap/actions/workflows/go.yml) [![codecov](https://codecov.io/github/Flyingmn/gzap/graph/badge.svg?token=I829UGIO29)](https://codecov.io/github/Flyingmn/gzap) [![Go Report Card](https://goreportcard.com/badge/github.com/Flyingmn/gzap)](https://goreportcard.com/report/github.com/Flyingmn/gzap) [![Go Reference](https://pkg.go.dev/badge/github.com/Flyingmn/gzap.svg)](https://pkg.go.dev/github.com/Flyingmn/gzap) ![Static Badge](https://img.shields.io/badge/License-MIT-blue)
+
 ## gzap
 
 Pack up the Zap, out of the box. ：）
