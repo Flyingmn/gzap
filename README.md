@@ -1,3 +1,4 @@
+[![CI&CD](https://github/Flyingmn/gzap/workflows/Go/badge.svg)] [![codecov](https://codecov.io/github/Flyingmn/gzap/graph/badge.svg?token=I829UGIO29)](https://codecov.io/github/Flyingmn/gzap)
 ## gzap
 
 Pack up the Zap, out of the box. ：）
