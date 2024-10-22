@@ -1,12 +1,13 @@
+# :umbrella: gzap
+
+<div align="center">
+
+Pack up the [Zap](https://github.com/uber-go/zap), out of the box. ：）
+
+
 [![Go](https://github.com/Flyingmn/gzap/actions/workflows/go.yml/badge.svg)](https://github.com/Flyingmn/gzap/actions/workflows/go.yml) [![codecov](https://codecov.io/github/Flyingmn/gzap/graph/badge.svg?token=I829UGIO29)](https://codecov.io/github/Flyingmn/gzap) [![Go Report Card](https://goreportcard.com/badge/github.com/Flyingmn/gzap)](https://goreportcard.com/report/github.com/Flyingmn/gzap) [![Go Reference](https://pkg.go.dev/badge/github.com/Flyingmn/gzap.svg)](https://pkg.go.dev/github.com/Flyingmn/gzap) ![Static Badge](https://img.shields.io/badge/License-MIT-blue)
 
-## gzap
-
-Pack up the Zap, out of the box. ：）
-
-What's zap?      : https://github.com/uber-go/zap
-
-More about gzap  : https://pkg.go.dev/github.com/Flyingmn/gzap
+</div>
 
 ## Installation
 
