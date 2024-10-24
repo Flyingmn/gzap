@@ -9,6 +9,64 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
+func TestConf(t *testing.T) {
+	conf := zap.Config{
+		Level:       zap.NewAtomicLevelAt(zap.InfoLevel), // 日志级别
+		Development: true,                                // 开发模式，堆栈跟踪
+		Encoding:    "console",                           // 输出格式 console 或 json
+
+		EncoderConfig: zapcore.EncoderConfig{
+			TimeKey:        "time",
+			LevelKey:       "level",
+			NameKey:        "name",
+			CallerKey:      "line",
+			MessageKey:     "msg",
+			FunctionKey:    "func",
+			StacktraceKey:  "stacktrace",
+			LineEnding:     zapcore.DefaultLineEnding,
+			EncodeLevel:    zapcore.LowercaseLevelEncoder,                          // 小写编码器
+			EncodeTime:     zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05.000"), // 自定义 时间格式
+			EncodeDuration: zapcore.SecondsDurationEncoder,
+			EncodeCaller:   zapcore.FullCallerEncoder, // 全路径编码器
+		}, // 编码器配置
+		InitialFields: map[string]interface{}{
+			"app": "test",
+		},
+	}
+
+	gzap.SetZapCfg(gzap.ZapConf(conf))
+
+	gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
+}
+func TestCon2(t *testing.T) {
+	conf := zap.Config{
+		Level:       zap.NewAtomicLevelAt(zap.InfoLevel), // 日志级别
+		Development: true,                                // 开发模式，堆栈跟踪
+		Encoding:    "console",                           // 输出格式 console 或 json
+
+		EncoderConfig: zapcore.EncoderConfig{
+			TimeKey:        "time",
+			LevelKey:       "level",
+			NameKey:        "name",
+			CallerKey:      "line",
+			MessageKey:     "msg",
+			FunctionKey:    "func",
+			StacktraceKey:  "stacktrace",
+			LineEnding:     zapcore.DefaultLineEnding,
+			EncodeLevel:    zapcore.LowercaseLevelEncoder,                          // 小写编码器
+			EncodeTime:     zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05.000"), // 自定义 时间格式
+			EncodeDuration: zapcore.SecondsDurationEncoder,
+			EncodeCaller:   zapcore.FullCallerEncoder, // 全路径编码器
+		}, // 编码器配置
+		InitialFields: map[string]interface{}{
+			"app": "test",
+		},
+	}
+
+	gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
+	gzap.SetZapCfg(gzap.ZapConf(conf))
+}
+
 func TestDebug(t *testing.T) {
 	//默认info,所以先设置级别
 	gzap.SetZapCfg(gzap.ZapLevel("debug"), gzap.ZapLevel("info"), gzap.ZapLevel("warn"), gzap.ZapLevel("error"), gzap.ZapLevel("dpanic"), gzap.ZapLevel("panic"), gzap.ZapLevel("fatal"))
@@ -158,36 +216,6 @@ func TestFile(t *testing.T) {
 			gzap.ZapOutFileMaxBackups(30),
 		),
 	)
-
-	gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
-}
-
-func TestConf(t *testing.T) {
-	conf := zap.Config{
-		Level:       zap.NewAtomicLevelAt(zap.InfoLevel), // 日志级别
-		Development: true,                                // 开发模式，堆栈跟踪
-		Encoding:    "json",                              // 输出格式 console 或 json
-
-		EncoderConfig: zapcore.EncoderConfig{
-			TimeKey:        "time",
-			LevelKey:       "level",
-			NameKey:        "name",
-			CallerKey:      "line",
-			MessageKey:     "msg",
-			FunctionKey:    "func",
-			StacktraceKey:  "stacktrace",
-			LineEnding:     zapcore.DefaultLineEnding,
-			EncodeLevel:    zapcore.LowercaseLevelEncoder,                          // 小写编码器
-			EncodeTime:     zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05.000"), // 自定义 时间格式
-			EncodeDuration: zapcore.SecondsDurationEncoder,
-			EncodeCaller:   zapcore.FullCallerEncoder, // 全路径编码器
-		}, // 编码器配置
-		InitialFields: map[string]interface{}{
-			"app": "test",
-		},
-	}
-
-	gzap.SetZapCfg(gzap.ZapConf(conf))
 
 	gzap.Info("hello world", zap.String("name", "zhangsan"), zap.Int("age", 18))
 }
